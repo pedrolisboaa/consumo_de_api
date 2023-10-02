@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previsão do Tempo</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>Consumidor de APIs {{ data }}</h1>
+        </div>
+        <div>
+            <nav>
+                <ul><a href="">Clima</a></ul>
+                <ul><a href="">Moedas</a></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            <select id="estados" name="estados">
+                <option value="null">Escolha um estado</option>   
+                {% for e in estados %}
+                    <option value="{{e.sigla}}">{{ e.nome_do_estado }}</option>    
+                {% endfor %}
+            </select>
+            <input type="submit" value="Buscar Estado">
+        </form>
+
+      
+        <div>
+            {% for d in dados_meteorologicos %}
+                <p>{{d}}</p>
+            {% endfor %}
+        </div>
+    </main>
+    
+    
+</body>
+</html>
